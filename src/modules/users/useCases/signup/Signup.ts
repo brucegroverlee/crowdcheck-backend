@@ -1,25 +1,40 @@
-import { IUsers } from "../../entities/IUsers";
-import { IUsersRepository } from "../../entities/IUsersRepository";
+import { ISignup } from "./primaryPorts/ISignup";
+import { IUsersRepository } from "./secondaryPorts/IUsersRepository";
+import { IBcrypt } from "./secondaryPorts/IBcrypt";
+import { IJwt } from "./secondaryPorts/IJwt";
+import { ISignupRequestModel } from "./secondaryPorts/ISignupRequestModel";
+import { ISignupResponseModel } from "./secondaryPorts/ISignupResponseModel";
+import { IValidator } from "./secondaryPorts/IValidator";
 
-export class Signup {
+export class Signup implements ISignup {
   constructor(
-    private Users: IUsers,
-    private UsersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    private bcrypt: IBcrypt,
+    private jwt: IJwt,
+    private responseModel: ISignupResponseModel,
+    private validation: IValidator,
   ) {}
 
-  async apply(values: {
-    name: string;
-    email: string;
-    password: string;
-  }): Promise<string | null> {
+  async execute(requestModel: ISignupRequestModel): Promise<void> {
     try {
-      const userDocument = await this.UsersRepository.findOne({ email: values.email});
-      if (userDocument === null)  {
-        await this.Users.create(values);
-        return this.Users.createJWT();
-      } else {
-        return null;
+      const { errors, data } = this.validation.validateData(requestModel.getData());
+      if (errors) {
+        this.responseModel.invalidData(errors);
+        return;
       }
+      const userDocument = await this.usersRepository.findOne({ email: data.email });
+      if (userDocument === null)  {
+        const hashedPassword = await this.bcrypt.hash(data.password);
+        const userId = await this.usersRepository.create({
+          ...data,
+          password: hashedPassword,
+        });
+        const token = this.jwt.create(userId);
+        this.responseModel.resolve(token);
+      } else {
+        this.responseModel.userExists();
+      }
+      return;
     } catch (error) {
       throw error;
     }

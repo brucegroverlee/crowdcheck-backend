@@ -1,7 +1,7 @@
-import { IDType } from "../../../shared/entities/types";
-import { IJwt } from "../IJwt";
+import { IDType } from "../../../../shared/entities/types";
+import { IJwt } from "../secondaryPorts/IJwt";
 
-export class JwtStub implements IJwt {
+export class JwtMock implements IJwt {
 
   create(userId: IDType): string {
     return JSON.stringify({ userId, });

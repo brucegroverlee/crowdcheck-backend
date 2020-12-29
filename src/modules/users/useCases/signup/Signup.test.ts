@@ -1,42 +1,48 @@
 import { Signup } from "./Signup";
-import { Users } from "../../entities/Users";
-import { UsersRepositoryStub } from "../../entities/__stubs/UsersRepository.stub";
-import { BcryptStub } from "../../entities/__stubs/Bcrypt.stub";
-import { JwtStub } from "../../entities/__stubs/Jwt.stub";
+import { UsersRepositoryMock } from "./__mocks__/UsersRepository.mock";
+import { BcryptMock } from "./__mocks__/Bcrypt.mock";
+import { JwtMock } from "./__mocks__/Jwt.mock";
+import { PresenterMock } from "./__mocks__/Presenter.mock";
+import { RequestModelMock } from "./__mocks__/RequestModel.mock";
+import { SignupValidator } from "../../adapters/validator/SignupValidator";
 
 describe("Signup useCase", () => {
   it("should signup a new user.", async () => {
-    const usersRepository = new UsersRepositoryStub();
-    const bcrypt = new BcryptStub();
-    const jwt = new JwtStub();
-    const user = new Users(usersRepository, bcrypt, jwt);
-    const signup = new Signup(user, usersRepository);
-    const token = await signup.apply({
+    const usersRepository = new UsersRepositoryMock();
+    const bcrypt = new BcryptMock();
+    const jwt = new JwtMock();
+    const presenter = new PresenterMock();
+    const validator = new SignupValidator();
+    const requestModel = new RequestModelMock({
       name: "grover",
       email: "grover@email.com",
       password: "1234",
     });
-    expect(typeof token).toBe("string");
-    expect(token).toBe("{\"userId\":1}");
+    const signup = new Signup(usersRepository, bcrypt, jwt, presenter, validator);
+    await signup.execute(requestModel);
+    expect(typeof presenter.result).toBe("string");
+    expect(presenter.result).toBe("{\"userId\":1}");
   });
 
   it("shouldn\'t signup a new user.", async () => {
-    const usersRepository = new UsersRepositoryStub();
-    const bcrypt = new BcryptStub();
-    const jwt = new JwtStub();
+    const usersRepository = new UsersRepositoryMock();
     usersRepository.create({
       name: "grover",
       email: "grover@email.com",
       password: "**1234**",
     });
-    const user = new Users(usersRepository, bcrypt, jwt);
-    const signup = new Signup(user, usersRepository);
-    const token = await signup.apply({
+    const bcrypt = new BcryptMock();
+    const jwt = new JwtMock();
+    const presenter = new PresenterMock();
+    const validator = new SignupValidator();
+    const requestModel = new RequestModelMock({
       name: "grover",
       email: "grover@email.com",
       password: "1234",
     });
-    expect(typeof token).toBe("object");
-    expect(token).toBe(null);
+    const signup = new Signup(usersRepository, bcrypt, jwt, presenter, validator);
+    await signup.execute(requestModel);
+    expect(typeof presenter.result).toBe("string");
+    expect(presenter.result).toBe("the user exists");
   });
 });

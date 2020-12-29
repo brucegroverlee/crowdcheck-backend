@@ -1,8 +1,8 @@
-import { IDocuments } from "./IDocuments";
+import { IDType } from "../../entities/types";
 
-export interface IRepositories<D extends IDocuments> {
-  create(values: any): Promise<D>;
-  findOne(query: any): Promise<D | null>;
+export interface IRepositories{
+  create(values: any): Promise<IDType>;
+  findOne(query: any): Promise<any|null>;
   /*
   findAndCountAll(
     where: any,
