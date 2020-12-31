@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.3.1...v1.3.2) (2020-12-31)
+
+
+### Others
+
+* **app.yaml:** change the env vars ([aa9e253](https://github.com/brucegroverlee/crowdcheck-backend/commit/aa9e253328180d7ce86f98fb618be3f08586ce02))
+
 ### [1.3.1](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.3.0...v1.3.1) (2020-12-31)
 
 
