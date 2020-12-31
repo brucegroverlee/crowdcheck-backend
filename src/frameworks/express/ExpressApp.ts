@@ -7,6 +7,7 @@ import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "../../modules/shared/errors/NotFoundError";
 import config from "../config";
 import { db } from "../mysql/mysql";
+import pkg from "../../../package.json";
 
 export class ExpressApp {
   public app: Application;
@@ -50,7 +51,7 @@ export class ExpressApp {
     this.app.listen(config.server.port, () => {
       // tslint:disable-next-line:no-console
       console.log(
-        `Server running on ${config.server.host}:${config.server.port}${config.server.root}`,
+        `${config.env} server v${pkg.version} running on ${config.server.host}:${config.server.port}${config.server.root}`,
       );
     });
   }

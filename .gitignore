@@ -91,5 +91,6 @@ typings/
 
 commits.txt
 commits.*.txt
+notes.txt
 cmd.txt
 build/
