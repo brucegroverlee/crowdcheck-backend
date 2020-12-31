@@ -48,6 +48,7 @@ export class ExpressApp {
 
   public Listen(): void {
     this.app.listen(config.server.port, () => {
+      // tslint:disable-next-line:no-console
       console.log(
         `Server running on ${config.server.host}:${config.server.port}${config.server.root}`,
       );

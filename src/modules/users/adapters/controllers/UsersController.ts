@@ -11,6 +11,7 @@ import { Signup } from "../../useCases/signup/Signup";
 
 export class UsersController extends BaseController {
   public constructor(
+    // tslint:disable-next-line:no-shadowed-variable
     private usersRepository: MySqlUserRepository
   ) {
     super();

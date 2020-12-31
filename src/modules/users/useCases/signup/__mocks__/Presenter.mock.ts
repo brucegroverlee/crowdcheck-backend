@@ -3,8 +3,6 @@ import { ISignupResponseModel  } from "../secondaryPorts/ISignupResponseModel";
 export class PresenterMock implements ISignupResponseModel {
   result: string;
 
-  constructor() {}
-
   resolve(token: string): void {
     this.result = token;
   }

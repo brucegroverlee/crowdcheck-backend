@@ -1,4 +1,4 @@
-# Social Fact Check [backend]
+# Social News [backend]
 
 ## Architecture
 - Clean Architecture / Hexagonal Architecture (Ports and Adapters)

@@ -8,5 +8,4 @@ export class BcryptMock implements IBcrypt {
   verify(user: IUsers, password: string): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  
 }
