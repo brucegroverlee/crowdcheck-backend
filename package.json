@@ -8,9 +8,10 @@
     "test": "npm run tslint && jest --coverage --testTimeout=1200000 --detectOpenHandles --forceExit",
     "commit": "git-cz",
     "release": "standard-version",
-    "dev": "npm run tslint && cross-env NODE_ENV=development nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,yml",
+    "dev": "npm run tslint && nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,yml",
     "build": "tslint -c tslint.json 'src/**/*.ts' && tsc",
-    "start": "cross-env NODE_ENV=production node ./build/src/index.js"
+    "start": "node ./build/src/index.js",
+    "deploy": "gcloud app deploy"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

@@ -1,0 +1,23 @@
+service: default
+runtime: nodejs12
+env: standard
+env_variables:
+  NODE_ENV: "production"
+  APP_ENV: "production"
+  SERVER_ROOT: /api
+  SERVER_HOST: localhost
+  # JWT
+  JWT_SECRET: "zxcvbnm"
+  JWT_EXPIRES_IN: "30d"
+  # MYSQL
+  MYSQL_HOST: $MYSQL_HOST
+  MYSQL_PORT: $MYSQL_PORT
+  MYSQL_USER: $MYSQL_USER
+  MYSQL_PASSWORD: $MYSQL_PASSWORD
+  MYSQL_DATABASE: $MYSQL_DATABASE
+  DB_SOCKET_PATH: $DB_SOCKET_PATH
+  CLOUD_SQL_CONNECTION_NAME: $CLOUD_SQL_CONNECTION_NAME
+instance_class: F1
+automatic_scaling:
+  max_instances: 2
+  min_instances: 0

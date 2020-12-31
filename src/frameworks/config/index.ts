@@ -6,11 +6,11 @@ if (!process?.env?.NODE_ENV) {
 const dev = "development";
 
 export default {
-  env: process.env.NODE_ENV || dev,
+  env: process.env.APP_ENV || dev,
   server: {
     root: process.env.SERVER_ROOT || "/api",
     host: process.env.SERVER_HOST || "localhost",
-    port: process.env.SERVER_PORT || 3003,
+    port: process.env.PORT || 3003,
     origins:
       process.env.ORIGINS || "http://localhost:3000,http://localhost:3001,http://localhost:3002",
   },
@@ -36,5 +36,7 @@ export default {
     USER: process.env.MYSQL_USER || 'root',
     PASSWORD: process.env.MYSQL_PASSWORD || 'root',
     DATABASE: process.env.MYSQL_DATABASE || 'socialnews',
+    DB_SOCKET_PATH: process.env.DB_SOCKET_PATH || '',
+    CLOUD_SQL_CONNECTION_NAME: process.env.CLOUD_SQL_CONNECTION_NAME || '',
   },
 };
