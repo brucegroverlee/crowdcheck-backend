@@ -1,9 +1,9 @@
-# Social News [backend]
+# Crowed Check [backend]
 
 ## Architecture
 - Clean Architecture / Hexagonal Architecture (Ports and Adapters)
 
-## Principles
+### Principles
 - SOLID
 - (REP) The Reuse/Release Equivalence Principle
 - (CCP) The Common Cloure Principle

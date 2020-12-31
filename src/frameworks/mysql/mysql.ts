@@ -18,15 +18,30 @@ class MySQL {
     this.database = config.mysql.DATABASE;
   }
 
+  getOptions() {
+    const options = {
+      host: this.host,
+      port: this.port,
+      user: this.user,
+      password: this.password,
+      database: this.database,
+    };
+    if (config.env === "production" || config.env === "staging") {
+      return {
+        ...options,
+        socketPath: `${config.mysql.DB_SOCKET_PATH}/${config.mysql.CLOUD_SQL_CONNECTION_NAME}`,
+      };
+    } else {
+      return options;
+    }
+  }
+
   async connect() {
     try {
-      this.connection = await mysql.createConnection({
-        host: this.host,
-        port: this.port,
-        user: this.user,
-        password: this.password,
-        database: this.database,
-      });
+      const options = this.getOptions();
+      // tslint:disable-next-line:no-console
+      console.log(options);
+      this.connection = await mysql.createConnection(options);
     } catch (error) {
       throw error;
     }
