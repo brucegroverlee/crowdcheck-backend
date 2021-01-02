@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.3.3...v1.4.0) (2021-01-02)
+
+
+### Features
+
+* **users:** login [ch30] ([3cd9579](https://github.com/brucegroverlee/crowdcheck-backend/commit/3cd95795dc9a91c60193b62b0fbcdd0c656dc84c))
+
 ### [1.3.3](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.3.2...v1.3.3) (2020-12-31)
 
 
