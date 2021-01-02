@@ -1,5 +1,5 @@
-import { IRepositories } from "../../../../shared/useCases/secondaryPorts/IRepositories";
-import { IDType } from "../../../../shared/entities/types";
+import { IRepositories } from "../../../shared/useCases/secondaryPorts/IRepositories";
+import { IDType } from "../../../shared/entities/types";
 
 export interface IUsersRepository extends IRepositories{
   create(values: {

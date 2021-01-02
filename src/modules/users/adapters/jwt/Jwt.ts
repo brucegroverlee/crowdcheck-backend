@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import { IJwt } from "../../useCases/signup/secondaryPorts/IJwt";
+import { IJwt } from "../../useCases/secondaryPorts/IJwt";
 import config from "../../../../frameworks/config";
 
 export class Jwt implements IJwt {

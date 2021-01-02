@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 
-import { IBcrypt } from "../../useCases/signup/secondaryPorts/IBcrypt";
+import { IBcrypt } from "../../useCases/secondaryPorts/IBcrypt";
 import { IUsers } from "../../entities/IUsers";
 
 export class Bcrypt implements IBcrypt {
