@@ -2,8 +2,8 @@ import { Login } from "./Login";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { BcryptMock } from "../__mocks__/Bcrypt.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
-import { PresenterMock } from "./__mocks__/Presenter.mock";
-import { RequestModelMock } from "./__mocks__/RequestModel.mock";
+import { PresenterMock } from "./__mocks__/LoginPresenter.mock";
+import { RequestModelMock } from "./__mocks__/LoginRequestModel.mock";
 import { LoginValidator } from "../../adapters/validator/LoginValidator";
 
 describe("Login useCase", () => {

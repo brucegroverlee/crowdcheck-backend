@@ -2,8 +2,8 @@ import { Signup } from "./Signup";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { BcryptMock } from "../__mocks__/Bcrypt.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
-import { PresenterMock } from "./__mocks__/Presenter.mock";
-import { RequestModelMock } from "./__mocks__/RequestModel.mock";
+import { PresenterMock } from "./__mocks__/SignupPresenter.mock";
+import { RequestModelMock } from "./__mocks__/SignupRequestModel.mock";
 import { SignupValidator } from "../../adapters/validator/SignupValidator";
 
 describe("Signup useCase", () => {
