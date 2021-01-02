@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.4.0...v1.4.1) (2021-01-02)
+
+
+### Tests
+
+* **users:** rename the mocks ([e2e21f8](https://github.com/brucegroverlee/crowdcheck-backend/commit/e2e21f84d7e94f797a58cad9e4831be6c43de554))
+
 ## [1.4.0](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.3.3...v1.4.0) (2021-01-02)
 
 
