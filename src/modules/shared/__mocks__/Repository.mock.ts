@@ -1,10 +1,9 @@
-import { IDType } from "../../../../shared/entities/types"
-import { IUsersRepository } from "../secondaryPorts/IUsersRepository";
-import { IUsers } from "../../../entities/IUsers";
+import { IDType } from "../entities/types"
+import { IRepositories } from "../useCases/secondaryPorts/IRepositories";
 
-export class UsersRepositoryMock implements IUsersRepository {
+export class RepositoryMock implements IRepositories {
   counter: number;
-  documents: IUsers[];
+  documents: any[];
 
   constructor() {
     this.counter = 1;
@@ -13,20 +12,18 @@ export class UsersRepositoryMock implements IUsersRepository {
 
   async create(values: any): Promise<IDType> {
     const now = new Date();
-    const newUser : IUsers = {
+    const newDocument: any = {
+      ...values,
       id: this.counter,
-      name: values.name,
-      email: values.email,
-      password: values.password,
       createdAt: now,
       updatedAt: now,
     };
-    this.documents.push(newUser);
+    this.documents.push(newDocument);
     this.counter++;
-    return newUser.id;
+    return newDocument.id;
   }
 
-  async findOne(query: any): Promise<IUsers> {
+  async findOne(query: any): Promise<any> {
     const attributes = Object.keys(query);
     const result = this.documents.find((document) => {
       return attributes.every((attribute) => document[attribute] === query[attribute]);

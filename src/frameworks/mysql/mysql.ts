@@ -39,8 +39,6 @@ class MySQL {
   async connect() {
     try {
       const options = this.getOptions();
-      // tslint:disable-next-line:no-console
-      console.log(options);
       this.connection = await mysql.createConnection(options);
     } catch (error) {
       throw error;

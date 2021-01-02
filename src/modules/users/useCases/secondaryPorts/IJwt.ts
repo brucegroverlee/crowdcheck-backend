@@ -1,4 +1,4 @@
-import { IDType } from "../../../../shared/entities/types";
+import { IDType } from "../../../shared/entities/types";
 
 export interface IJwt {
   create(userId: IDType): string;

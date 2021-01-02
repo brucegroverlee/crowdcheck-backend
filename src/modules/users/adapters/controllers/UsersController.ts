@@ -8,6 +8,10 @@ import { SignupPresenter } from "../presenters/SignupPresenter";
 import { SignupRequestModel } from "../requestModels/SignupRequestModel";
 import { SignupValidator } from "../validator/SignupValidator";
 import { Signup } from "../../useCases/signup/Signup";
+import { LoginPresenter } from "../presenters/LoginPresenter";
+import { LoginRequestModel } from "../requestModels/LoginRequestModel";
+import { LoginValidator } from "../validator/LoginValidator";
+import { Login } from "../../useCases/login/Login";
 
 export class UsersController extends BaseController {
   public constructor(
@@ -19,10 +23,11 @@ export class UsersController extends BaseController {
   }
 
   private InitializeRoutes() {
-    this.router.post("/signup", this.PostSignup);
+    this.router.post("/signup", this.Signup);
+    this.router.post("/login", this.Login);
   }
 
-  PostSignup = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+  Signup = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     try {
       const bcrypt = new Bcrypt();
       const jwt = new Jwt();
@@ -32,6 +37,21 @@ export class UsersController extends BaseController {
       const validator = new SignupValidator();
       const signup = new Signup(this.usersRepository, bcrypt, jwt, presenter, validator);
       await signup.execute(requestModel);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  Login = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+    try {
+      const bcrypt = new Bcrypt();
+      const jwt = new Jwt();
+      const requestModel = new LoginRequestModel(request);
+      const viewModel = new ViewModel(response);
+      const presenter = new LoginPresenter(viewModel);
+      const validator = new LoginValidator();
+      const login = new Login(this.usersRepository, bcrypt, jwt, presenter, validator);
+      await login.execute(requestModel);
     } catch (error) {
       next(error);
     }

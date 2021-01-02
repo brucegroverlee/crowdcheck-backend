@@ -13,8 +13,6 @@ export class ExpressApp {
   public app: Application;
 
   constructor(controllers: BaseController[]) {
-    // tslint:disable-next-line:no-console
-    console.log(config);
     this.app = Express();
     this.LoadMiddleware();
     this.LoadControllers(controllers);
