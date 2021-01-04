@@ -63,4 +63,8 @@ export class MySqlBaseRepository{
       });
     });
   }
+
+  findById(id: IDType): Promise<any|null> {
+    return this.findOne({ id, });
+  }
 }

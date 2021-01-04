@@ -34,4 +34,8 @@ export class RepositoryMock implements IRepositories {
       return result;
     }
   }
+
+  findById(id: IDType): Promise<any|null> {
+    return this.findOne({ id, });
+  }
 }

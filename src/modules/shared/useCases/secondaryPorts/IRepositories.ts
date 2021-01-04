@@ -3,6 +3,7 @@ import { IDType } from "../../entities/types";
 export interface IRepositories{
   create(values: any): Promise<IDType>;
   findOne(query: any): Promise<any|null>;
+  findById(id: IDType): Promise<any|null>;
   /*
   findAndCountAll(
     where: any,

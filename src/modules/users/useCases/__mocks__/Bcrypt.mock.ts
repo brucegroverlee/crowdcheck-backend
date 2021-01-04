@@ -1,4 +1,4 @@
-import { IBcrypt } from "../secondaryPorts/IBcrypt";
+import { IBcrypt } from "../sharedPorts/IBcrypt";
 import { IUsers } from "../../entities/IUsers";
 
 export class BcryptMock implements IBcrypt {
