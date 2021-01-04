@@ -1,6 +1,8 @@
 import { BaseController } from "../../../shared/adapters/controllers/BaseController";
+import { authentication } from "../../../shared/middlewares/authentication";
 import { Request, Response, NextFunction } from "../../../../frameworks/express/CoreModules";
 import { MySqlUserRepository } from "../gateways/MySqlUserRepository";
+import { IUsersRepository } from "../../useCases/sharedPorts/IUsersRepository";
 import { ViewModel } from "../../../shared/adapters/viewModel/ViewModel";
 import { Bcrypt } from "../bcrypt/Bcrypt";
 import { Jwt } from "../jwt/Jwt";
@@ -12,11 +14,14 @@ import { LoginPresenter } from "../presenters/LoginPresenter";
 import { LoginRequestModel } from "../requestModels/LoginRequestModel";
 import { LoginValidator } from "../validator/LoginValidator";
 import { Login } from "../../useCases/login/Login";
+import { MePresenter } from "../presenters/MePresenter";
+import { AuthenticatedRequestModel } from "../../../shared/adapters/requestModel/AuthenticatedRequestModel";
+import { Me } from "../../useCases/me/Me";
 
 export class UsersController extends BaseController {
   public constructor(
     // tslint:disable-next-line:no-shadowed-variable
-    private usersRepository: MySqlUserRepository
+    private usersRepository: IUsersRepository,
   ) {
     super();
     this.InitializeRoutes();
@@ -25,6 +30,7 @@ export class UsersController extends BaseController {
   private InitializeRoutes() {
     this.router.post("/signup", this.Signup);
     this.router.post("/login", this.Login);
+    this.router.get("/me", authentication, this.Me);
   }
 
   Signup = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
@@ -56,6 +62,19 @@ export class UsersController extends BaseController {
       next(error);
     }
   };
+
+  Me = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
+    try {
+      const jwt = new Jwt();
+      const requestModel = new AuthenticatedRequestModel(request);
+      const viewModel = new ViewModel(response);
+      const presenter = new MePresenter(viewModel);
+      const me = new Me(this.usersRepository, jwt, presenter);
+      await me.execute(requestModel);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 const usersRepository = new MySqlUserRepository();

@@ -1,7 +1,7 @@
 import { ILogin } from "./primaryPorts/ILogin";
-import { IUsersRepository } from "../secondaryPorts/IUsersRepository";
-import { IBcrypt } from "../secondaryPorts/IBcrypt";
-import { IJwt } from "../secondaryPorts/IJwt";
+import { IUsersRepository } from "../sharedPorts/IUsersRepository";
+import { IBcrypt } from "../sharedPorts/IBcrypt";
+import { IJwt } from "../sharedPorts/IJwt";
 import { ILoginRequestModel } from "./secondaryPorts/ILoginRequestModel";
 import { ILoginResponseModel } from "./secondaryPorts/ILoginResponseModel";
 import { IValidator } from "./secondaryPorts/IValidator";

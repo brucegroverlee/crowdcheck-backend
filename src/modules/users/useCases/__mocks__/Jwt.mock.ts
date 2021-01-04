@@ -1,5 +1,5 @@
 import { IDType } from "../../../shared/entities/types";
-import { IJwt } from "../secondaryPorts/IJwt";
+import { IJwt } from "../sharedPorts/IJwt";
 
 export class JwtMock implements IJwt {
 
