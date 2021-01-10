@@ -1,9 +1,11 @@
+import { IEntities } from "../../entities/IEntities";
 import { IDType } from "../../entities/types";
 
-export interface IRepositories{
-  create(values: any): Promise<IDType>;
-  findOne(query: any): Promise<any|null>;
-  findById(id: IDType): Promise<any|null>;
+export interface IRepositories<T extends IEntities>{
+  create(values: object): Promise<T>;
+  findOne(query: object): Promise<T|null>;
+  findById(id: IDType): Promise<T|null>;
+  isAvailable(query: object): Promise<boolean>;
   /*
   findAndCountAll(
     where: any,

@@ -3,6 +3,6 @@ import { IDType } from "./types";
 export interface IEntities {
   [key: string]: any;
   id: IDType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

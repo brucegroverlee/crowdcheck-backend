@@ -1,4 +1,5 @@
 import { Login } from "./Login";
+import { IUsers } from "../../entities/IUsers";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { BcryptMock } from "../__mocks__/Bcrypt.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
@@ -8,7 +9,7 @@ import { LoginValidator } from "../../adapters/validator/LoginValidator";
 
 describe("Login useCase", () => {
   it("should login the user.", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     usersRepository.create({
       name: "grover",
       email: "grover@email.com",
@@ -29,7 +30,7 @@ describe("Login useCase", () => {
   });
 
   it("shouldn\'t login the user. the user doesn\'t exist", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     const bcrypt = new BcryptMock();
     const jwt = new JwtMock();
     const presenter = new PresenterMock();
@@ -45,7 +46,7 @@ describe("Login useCase", () => {
   });
 
   it("shouldn\'t login the user. the password is not correct", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     usersRepository.create({
       name: "grover",
       email: "grover@email.com",

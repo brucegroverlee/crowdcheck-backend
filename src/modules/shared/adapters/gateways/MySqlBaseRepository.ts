@@ -1,19 +1,21 @@
 import mysql from "mysql2";
 
+import { IEntities } from "../../entities/IEntities";
 import { IDType } from "../../entities/types";
 import { db } from "../../../../frameworks/mysql/mysql";
 
-export class MySqlBaseRepository{
+export class MySqlBaseRepository<T extends IEntities>{
   readonly tableName: string;
 
   /**
    * Returns the new entity's id.
    */
-  _create(payload: any): Promise<IDType> {
+  _create(payload: object): Promise<T> {
     return new Promise((resolve, reject) => {
       let columns: string[] = [];
       let placeholders: string[] = [];
       let values = Object.values(payload);
+      const now = new Date();
 
       function parseColumns() {
         Object.keys(payload).forEach(key => {
@@ -23,7 +25,6 @@ export class MySqlBaseRepository{
       }
 
       function addDefaultColumns() {
-        const now = new Date();
         columns = columns.concat(["\`createdAt\`", "\`updatedAt\`"]);
         placeholders = placeholders.concat(["?", "?"]);
         values = values.concat([now, now]);
@@ -34,13 +35,18 @@ export class MySqlBaseRepository{
       const query = `INSERT INTO \`${this.tableName}\` ( ${columns.join(",")} ) VALUES ( ${placeholders.join(",")} );`;
       db.connection.execute(query, values, (err: mysql.QueryError, result: mysql.ResultSetHeader, fields: mysql.FieldPacket[]) => {
           if (err) reject(err);
-          resolve(result.insertId);
+          resolve({
+            ...payload,
+            id: result.insertId as IDType,
+            createdAt: now,
+            updatedAt: now,
+          } as T);
         }
       );
     });
   }
 
-  findOne(payload: any): Promise<any|null> {
+  findOne(payload: object): Promise<T|null> {
     return new Promise((resolve, reject) => {
       const columns: string[] = [];
       const values = Object.values(payload);
@@ -56,7 +62,7 @@ export class MySqlBaseRepository{
       db.connection.execute(query, values, (err: mysql.QueryError, results: mysql.RowDataPacket[], fields: mysql.FieldPacket[]) => {
         if (err) reject(err);
         if (results.length > 0) {
-          resolve(results[0]);
+          resolve(results[0] as T);
         } else {
           resolve(null);
         }
@@ -64,7 +70,21 @@ export class MySqlBaseRepository{
     });
   }
 
-  findById(id: IDType): Promise<any|null> {
+  findById(id: IDType): Promise<T|null> {
     return this.findOne({ id, });
+  }
+
+  async isAvailable(query: object): Promise<boolean> {
+    try {
+      const doc = await this.findOne(query);
+      if (doc) {
+        // is not available, the document exists.
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }

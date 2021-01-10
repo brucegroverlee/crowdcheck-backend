@@ -23,9 +23,9 @@ export class Login implements ILogin {
         this.responseModel.invalidData(errors);
         return;
       }
-      const userDocument = await this.usersRepository.findOne({ email: data.email });
-      if (userDocument !== null)  {
-        const user = new Users(userDocument);
+      const doc = await this.usersRepository.findOne({ email: data.email });
+      if (doc)  {
+        const user = new Users(doc);
         const isCorrect = await this.bcrypt.verify(user, data.password);
         if (isCorrect) {
           const token = this.jwt.create(user.id);

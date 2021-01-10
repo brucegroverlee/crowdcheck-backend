@@ -6,16 +6,16 @@ export class Users implements IUsers {
   name: string;
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 
   constructor(values: {
     id: IDType,
     name: string,
     email: string,
     password: string,
-    createdAt: Date,
-    updatedAt: Date,
+    createdAt: string,
+    updatedAt: string,
   }) {
     this.id = values.id;
     this.name = values.name;

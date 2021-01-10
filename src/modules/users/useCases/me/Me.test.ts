@@ -1,4 +1,5 @@
 import { Me } from "./Me";
+import { IUsers } from "../../entities/IUsers";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
 import { PresenterMock} from "./__mocks__/MePresenter.mock";
@@ -6,7 +7,7 @@ import { AuthenticatedRequestModel, IAuthenticatedRequest } from "../../../share
 
 describe("Me useCase", () => {
   it("should returns the user data.", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     usersRepository.create({
       name: "grover",
       email: "grover@email.com",
@@ -28,7 +29,7 @@ describe("Me useCase", () => {
   });
 
   it("shouldn\'t returns a user data.", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     const jwt = new JwtMock();
     const request: any = {
       user: {

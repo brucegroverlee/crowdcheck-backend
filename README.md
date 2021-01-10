@@ -1,4 +1,4 @@
-# Crowed Check [backend]
+# Crowd Check [backend]
 
 ## Architecture
 - Clean Architecture / Hexagonal Architecture (Ports and Adapters)

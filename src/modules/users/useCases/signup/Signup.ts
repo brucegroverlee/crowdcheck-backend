@@ -22,14 +22,14 @@ export class Signup implements ISignup {
         this.responseModel.invalidData(errors);
         return;
       }
-      const userDocument = await this.usersRepository.findOne({ email: data.email });
-      if (userDocument === null)  {
+      const isAvailable = await this.usersRepository.isAvailable({ email: data.email });
+      if (isAvailable)  {
         const hashedPassword = await this.bcrypt.hash(data.password);
-        const userId = await this.usersRepository.create({
+        const user = await this.usersRepository.create({
           ...data,
           password: hashedPassword,
         });
-        const token = this.jwt.create(userId);
+        const token = this.jwt.create(user.id);
         this.responseModel.resolve(token);
       } else {
         this.responseModel.userExists();

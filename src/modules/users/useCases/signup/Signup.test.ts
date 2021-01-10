@@ -1,4 +1,5 @@
 import { Signup } from "./Signup";
+import { IUsers } from "../../entities/IUsers";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { BcryptMock } from "../__mocks__/Bcrypt.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
@@ -8,7 +9,7 @@ import { SignupValidator } from "../../adapters/validator/SignupValidator";
 
 describe("Signup useCase", () => {
   it("should signup a new user.", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     const bcrypt = new BcryptMock();
     const jwt = new JwtMock();
     const presenter = new PresenterMock();
@@ -25,7 +26,7 @@ describe("Signup useCase", () => {
   });
 
   it("shouldn\'t signup a new user.", async () => {
-    const usersRepository = new RepositoryMock();
+    const usersRepository = new RepositoryMock<IUsers>();
     usersRepository.create({
       name: "grover",
       email: "grover@email.com",

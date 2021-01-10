@@ -1,16 +1,18 @@
-import { IDType } from "../entities/types"
+/* tslint:disable:max-classes-per-file */
+import { IEntities } from "../entities/IEntities";
+import { IDType } from "../entities/types";
 import { IRepositories } from "../useCases/secondaryPorts/IRepositories";
 
-export class RepositoryMock implements IRepositories {
+export class RepositoryMock<T extends IEntities> implements IRepositories<T> {
   counter: number;
-  documents: any[];
+  documents: T[];
 
   constructor() {
     this.counter = 1;
     this.documents = [];
   }
 
-  async create(values: any): Promise<IDType> {
+  async create(values: object): Promise<T> {
     const now = new Date();
     const newDocument: any = {
       ...values,
@@ -20,10 +22,10 @@ export class RepositoryMock implements IRepositories {
     };
     this.documents.push(newDocument);
     this.counter++;
-    return newDocument.id;
+    return newDocument;
   }
 
-  async findOne(query: any): Promise<any> {
+  async findOne(query: any): Promise<T> {
     const attributes = Object.keys(query);
     const result = this.documents.find((document) => {
       return attributes.every((attribute) => document[attribute] === query[attribute]);
@@ -35,7 +37,27 @@ export class RepositoryMock implements IRepositories {
     }
   }
 
-  findById(id: IDType): Promise<any|null> {
+  findById(id: IDType): Promise<T|null> {
     return this.findOne({ id, });
+  }
+
+  async isAvailable(query: object): Promise<boolean> {
+    try {
+      const doc = await this.findOne(query);
+      if (doc) {
+        // is not available, the document exists.
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export class RepositoryMockFactory {
+  static getRepository<T extends IEntities>() {
+    return new RepositoryMock<T>();
   }
 }

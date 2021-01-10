@@ -1,11 +1,11 @@
 import { MySqlBaseRepository } from "../../../shared/adapters/gateways/MySqlBaseRepository";
-import { IDType } from "../../../shared/entities/types"
+import { IUsers } from "../../entities/IUsers";
 import { IUsersRepository } from "../../useCases/sharedPorts/IUsersRepository";
 
-export class MySqlUserRepository extends MySqlBaseRepository implements IUsersRepository {
+export class MySqlUserRepository extends MySqlBaseRepository<IUsers> implements IUsersRepository {
   readonly tableName: string = "users";
 
-  create(values: { name: string; email: string; password: string; }): Promise<IDType> {
+  create(values: { name: string; email: string; password: string; }): Promise<IUsers> {
     try {
       return super._create(values);
     } catch (error) {
