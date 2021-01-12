@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.6.0...v1.6.1) (2021-01-12)
+
+
+### Code Refactoring
+
+* **users:** refactor controllers and routers [ch43] ([824f87a](https://github.com/brucegroverlee/crowdcheck-backend/commit/824f87abaa51b13633feeb3dc934b7a6e6486050))
+
 ## [1.6.0](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.5.0...v1.6.0) (2021-01-10)
 
 
