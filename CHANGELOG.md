@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.6.1...v1.6.2) (2021-01-12)
+
+
+### Others
+
+* **db-migrate:** add db migration tool [ch42] ([9872096](https://github.com/brucegroverlee/crowdcheck-backend/commit/9872096270dc41e68dc5b7992fceab34b3e9e7a3))
+
 ### [1.6.1](https://github.com/brucegroverlee/crowdcheck-backend/compare/v1.6.0...v1.6.1) (2021-01-12)
 
 
