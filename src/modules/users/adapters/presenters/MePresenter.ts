@@ -1,4 +1,4 @@
-import { IMeResponseModel  } from "../../useCases/me/secondaryPorts/IMeResponseModel";
+import { IMeResponseModel  } from "../../useCases/me/ports/IMeResponseModel";
 import { ViewModel } from "../../../shared/adapters/viewModel/ViewModel";
 
 export class MePresenter implements IMeResponseModel {

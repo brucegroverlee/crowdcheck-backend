@@ -2,7 +2,7 @@ import { MySqlBaseRepository } from "../../../shared/adapters/gateways/MySqlBase
 import { IUsers } from "../../entities/IUsers";
 import { IUsersRepository } from "../../useCases/sharedPorts/IUsersRepository";
 
-export class MySqlUserRepository extends MySqlBaseRepository<IUsers> implements IUsersRepository {
+export class MySqlUsersRepository extends MySqlBaseRepository<IUsers> implements IUsersRepository {
   readonly tableName: string = "users";
 
   create(values: { name: string; email: string; password: string; }): Promise<IUsers> {

@@ -1,4 +1,4 @@
-import { ILoginResponseModel  } from "../../useCases/login/secondaryPorts/ILoginResponseModel";
+import { ILoginResponseModel  } from "../../useCases/login/ports/ILoginResponseModel";
 import { ViewModel } from "../../../shared/adapters/viewModel/ViewModel";
 
 export class LoginPresenter implements ILoginResponseModel {
@@ -8,10 +8,6 @@ export class LoginPresenter implements ILoginResponseModel {
 
   resolve(token: string): void {
     this.viewModel.resolve(this.RESOLVE_STATUS_CODE, {token});
-  }
-
-  invalidData(errors: any[]): void {
-    this.viewModel.rejectNotAcceptable406(errors);
   }
 
   userDoesntExist(): void {

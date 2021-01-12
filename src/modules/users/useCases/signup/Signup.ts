@@ -1,32 +1,24 @@
-import { ISignup } from "./primaryPorts/ISignup";
 import { IUsersRepository } from "../sharedPorts/IUsersRepository";
 import { IBcrypt } from "../sharedPorts/IBcrypt";
 import { IJwt } from "../sharedPorts/IJwt";
-import { ISignupRequestModel } from "./secondaryPorts/ISignupRequestModel";
-import { ISignupResponseModel } from "./secondaryPorts/ISignupResponseModel";
-import { IValidator } from "./secondaryPorts/IValidator";
+import { ISignupRequestModel } from "./ports/ISignupRequestModel";
+import { ISignupResponseModel } from "./ports/ISignupResponseModel";
 
-export class Signup implements ISignup {
+export class Signup {
   constructor(
     private usersRepository: IUsersRepository,
     private bcrypt: IBcrypt,
     private jwt: IJwt,
     private responseModel: ISignupResponseModel,
-    private validation: IValidator,
   ) {}
 
   async execute(requestModel: ISignupRequestModel): Promise<void> {
     try {
-      const { errors, data } = this.validation.validateData(requestModel.getData());
-      if (errors) {
-        this.responseModel.invalidData(errors);
-        return;
-      }
-      const isAvailable = await this.usersRepository.isAvailable({ email: data.email });
+      const isAvailable = await this.usersRepository.isAvailable({ email: requestModel.email });
       if (isAvailable)  {
-        const hashedPassword = await this.bcrypt.hash(data.password);
+        const hashedPassword = await this.bcrypt.hash(requestModel.password);
         const user = await this.usersRepository.create({
-          ...data,
+          ...requestModel,
           password: hashedPassword,
         });
         const token = this.jwt.create(user.id);

@@ -1,4 +1,4 @@
-import { Response } from "../../../../frameworks/express/CoreModules";
+import { Response } from "express";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { UnauthorizedError } from "../../errors/UnauthorizedError";
 import { ForbiddenError } from "../../errors/ForbiddenError";

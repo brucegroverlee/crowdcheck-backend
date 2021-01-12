@@ -3,9 +3,18 @@ import { IUsers } from "../../entities/IUsers";
 import { RepositoryMock } from "../../../shared/__mocks__/Repository.mock";
 import { BcryptMock } from "../__mocks__/Bcrypt.mock";
 import { JwtMock } from "../__mocks__/Jwt.mock";
-import { PresenterMock } from "./__mocks__/SignupPresenter.mock";
-import { RequestModelMock } from "./__mocks__/SignupRequestModel.mock";
-import { SignupValidator } from "../../adapters/validator/SignupValidator";
+import { ISignupResponseModel } from "./ports/ISignupResponseModel";
+
+export class PresenterMock implements ISignupResponseModel {
+  result: string;
+
+  resolve(token: string): void {
+    this.result = token;
+  }
+  userExists(): void {
+    this.result = "the user exists";
+  }
+}
 
 describe("Signup useCase", () => {
   it("should signup a new user.", async () => {
@@ -13,13 +22,12 @@ describe("Signup useCase", () => {
     const bcrypt = new BcryptMock();
     const jwt = new JwtMock();
     const presenter = new PresenterMock();
-    const validator = new SignupValidator();
-    const requestModel = new RequestModelMock({
+    const requestModel = {
       name: "grover",
       email: "grover@email.com",
       password: "1234",
-    });
-    const signup = new Signup(usersRepository, bcrypt, jwt, presenter, validator);
+    };
+    const signup = new Signup(usersRepository, bcrypt, jwt, presenter);
     await signup.execute(requestModel);
     expect(typeof presenter.result).toBe("string");
     expect(presenter.result).toBe("{\"userId\":1}");
@@ -35,13 +43,12 @@ describe("Signup useCase", () => {
     const bcrypt = new BcryptMock();
     const jwt = new JwtMock();
     const presenter = new PresenterMock();
-    const validator = new SignupValidator();
-    const requestModel = new RequestModelMock({
+    const requestModel = {
       name: "grover",
       email: "grover@email.com",
       password: "1234",
-    });
-    const signup = new Signup(usersRepository, bcrypt, jwt, presenter, validator);
+    };
+    const signup = new Signup(usersRepository, bcrypt, jwt, presenter);
     await signup.execute(requestModel);
     expect(typeof presenter.result).toBe("string");
     expect(presenter.result).toBe("the user exists");

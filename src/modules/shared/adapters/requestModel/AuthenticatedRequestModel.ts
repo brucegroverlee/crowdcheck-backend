@@ -1,4 +1,4 @@
-import { Request } from "../../../../frameworks/express/CoreModules";
+import { Request } from "express";
 import { IDType } from "../../entities/types";
 import { IAuthenticatedRequestModel } from "../../useCases/secondaryPorts/IAuthenticatedRequestModel"
 

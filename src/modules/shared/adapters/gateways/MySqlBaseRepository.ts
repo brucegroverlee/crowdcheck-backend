@@ -40,7 +40,7 @@ export class MySqlBaseRepository<T extends IEntities>{
             id: result.insertId as IDType,
             createdAt: now,
             updatedAt: now,
-          } as T);
+          } as unknown as T);
         }
       );
     });

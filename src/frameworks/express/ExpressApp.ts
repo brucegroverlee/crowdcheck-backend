@@ -1,21 +1,24 @@
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { Express, BodyParser, Application } from "./CoreModules";
-import { BaseController } from "../../modules/shared/adapters/controllers/BaseController";
+import Express, { Application } from "express";
+import BodyParser from "body-parser";
 import { errorHandler } from "./middlewares/errorHandler";
 import { NotFoundError } from "../../modules/shared/errors/NotFoundError";
 import config from "../config";
 import { db } from "../mysql/mysql";
 import pkg from "../../../package.json";
 
+import usersRouter from "../../modules/users/adapters/controllers/router";
+import peopleRouter from "../../modules/people/adapter/controllers/router";
+
 export class ExpressApp {
   public app: Application;
 
-  constructor(controllers: BaseController[]) {
+  constructor() {
     this.app = Express();
     this.LoadMiddleware();
-    this.LoadControllers(controllers);
+    this.LoadRouters();
     this.LoadNotFoundError();
     this.LoadHandleError();
   }
@@ -31,9 +34,13 @@ export class ExpressApp {
     }
   }
 
-  private LoadControllers(controllers: BaseController[]): void {
-    controllers.forEach((controller) => {
-      this.app.use(config.server.root, controller.router);
+  private LoadRouters(): void {
+    const routers: Express.Router[] = [
+      usersRouter,
+      peopleRouter,
+    ];
+    routers.forEach((router) => {
+      this.app.use(config.server.root, router);
     });
   }
 
