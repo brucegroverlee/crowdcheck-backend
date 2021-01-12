@@ -5,14 +5,14 @@ export class Person implements IPerson {
   id: IDType;
   name: string;
   createdBy: IDType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 
   constructor(values: {
     id: IDType,
     name: string,
-    createdAt: Date,
-    updatedAt: Date,
+    createdAt: string,
+    updatedAt: string,
   }) {
     this.id = values.id;
     this.name = values.name;
